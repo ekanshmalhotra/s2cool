@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>S2Cool Pro - Pakistan Climate Platform</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles-plain.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo-box">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+            </div>
+            <div class="header-text">
+                <h1 class="header-title">Pakistan Climate Map</h1>
+                <p class="header-subtitle">S2Cool Sustainable Monitoring</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="search-box">
+                <input type="text" id="citySearch" class="search-input" placeholder="Search city..." />
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </div>
+            <div class="header-buttons-desktop">
+                <button class="icon-btn" id="refreshBtn" title="Refresh Data">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36M20.49 15a9 9 0 0 1-14.85 3.36"></path>
+                    </svg>
+                </button>
+                <button class="icon-btn" id="darkModeBtn" title="Dark Mode">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+            <button class="analytics-btn">
+                <span class="analytics-text">ANALYTICS HUB</span>
+                <svg class="analytics-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+        <!-- MAP -->
+        <div id="map" class="map-container"></div>
+
+        <!-- DESKTOP LEFT SIDEBAR -->
+        <div class="left-sidebar">
+            <!-- PARAMETERS PANEL -->
+            <div class="glass-panel parameters-panel">
+                <h3 class="panel-title">
+                    <svg class="title-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    Live Parameters
+                </h3>
+                <div class="parameters-list">
+                    <button class="metric-btn" data-metric="temp">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 14.76v1.48a2 2 0 0 1-2 2h-.5a2 2 0 0 1-2-2v-1.48"></path>
+                            <path d="M16 20h-8"></path>
+                            <path d="M12 4v9"></path>
+                            <rect x="10" y="2" width="4" height="4" rx="1"></rect>
+                        </svg>
+                        <span>TEMPERATURE</span>
+                        <svg class="sparkle-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="5" r="1"></circle>
+                            <circle cx="19" cy="12" r="1"></circle>
+                            <circle cx="12" cy="19" r="1"></circle>
+                            <circle cx="5" cy="12" r="1"></circle>
+                            <circle cx="17" cy="7" r="1"></circle>
+                            <circle cx="17" cy="17" r="1"></circle>
+                            <circle cx="7" cy="17" r="1"></circle>
+                            <circle cx="7" cy="7" r="1"></circle>
+                        </svg>
+                    </button>
+                    <button class="metric-btn" data-metric="windSpeed">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                        </svg>
+                        <span>WIND SPEED</span>
+                    </button>
+                    <button class="metric-btn" data-metric="humidity">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                        </svg>
+                        <span>HUMIDITY</span>
+                    </button>
+                    <button class="metric-btn" data-metric="dewPoint">
+                        <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 14.899A7 7 0 1 1 15.71 8m-6.85 4.75A3.5 3.5 0 0 1 12 2.5"></path>
+                        </svg>
+                        <span>DEW POINT</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- INFO PANEL -->
+            <div class="glass-panel info-panel">
+                <h3 class="time-label">Selected City</h3>
+                <div class="selected-city-info">
+                    <p id="selectedCityName" class="selected-city-name">—</p>
+                    <p id="selectedCityTemp" class="selected-city-temp">—°</p>
+                </div>
+            </div>
+
+            <!-- TIME PANEL -->
+            <div class="glass-panel time-panel">
+                <h3 class="time-label">Last Updated</h3>
+                <div class="current-time" id="currentTime">12:00</div>
+            </div>
+        </div>
+
+        <!-- MOBILE BOTTOM NAVIGATION -->
+        <div class="mobile-nav">
+            <div class="glass-panel mobile-params">
+                <button class="mobile-metric-btn" data-metric="temp">
+                    <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 14.76v1.48a2 2 0 0 1-2 2h-.5a2 2 0 0 1-2-2v-1.48"></path>
+                        <path d="M16 20h-8"></path>
+                        <path d="M12 4v9"></path>
+                        <rect x="10" y="2" width="4" height="4" rx="1"></rect>
+                    </svg>
+                    <span>Temp</span>
+                </button>
+                <button class="mobile-metric-btn" data-metric="windSpeed">
+                    <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                    </svg>
+                    <span>Wind</span>
+                </button>
+                <button class="mobile-metric-btn" data-metric="humidity">
+                    <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                    </svg>
+                    <span>Humid</span>
+                </button>
+                <button class="mobile-metric-btn" data-metric="dewPoint">
+                    <svg class="metric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 14.899A7 7 0 1 1 15.71 8m-6.85 4.75A3.5 3.5 0 0 1 12 2.5"></path>
+                    </svg>
+                    <span>Dew</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- METRIC SCALE -->
+        <div class="metric-scale">
+            <p class="scale-label">Scale</p>
+            <p class="scale-metric" id="scaleMetricLabel">TEMPERATURE</p>
+            <div class="scale-gradient-container">
+                <span class="scale-max" id="scaleMax">35°</span>
+                <div class="scale-gradient" id="scaleGradient"></div>
+                <span class="scale-min" id="scaleMin">15°</span>
+            </div>
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span class="live-text">Live</span>
+            </div>
+        </div>
+
+        <!-- BOTTOM CONTROLS -->
+        <div class="bottom-controls">
+            <div class="mobile-time" id="mobileTime">
+                <div class="time-dot"></div>
+                <span id="mobileTimeText">12:00</span>
+            </div>
+            <button class="center-map-btn" id="centerMapBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span>Center Map</span>
+            </button>
+            <button class="cities-list-btn" id="citiesListBtn" title="Cities List">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- CITIES LIST MODAL -->
+        <div class="cities-modal" id="citiesModal">
+            <div class="cities-modal-content">
+                <div class="cities-modal-header">
+                    <h2>Cities</h2>
+                    <button class="modal-close" id="citiesModalClose">×</button>
+                </div>
+                <div id="citiesList" class="cities-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEAFLET LIBRARY -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- APP SCRIPT -->
+    <script src="app-plain.js"></script>
+</body>
+</html>
